@@ -4,20 +4,52 @@ import logging
 import sys
 from asyncio.queues import Queue
 from typing import Optional
+from pathlib import Path
+from typing import Any, Callable, Dict, Optional, Union
 
 import colorlog
-from chia.util.config import load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
+import yaml
+import os
+
 from sqlalchemy.exc import OperationalError
 
 from monitor.collectors import RpcCollector, WsCollector
 from monitor.collectors.price_collector import PriceCollector
-from monitor.database import ChiaEvent, session
-from monitor.exporter import ChiaExporter
-from monitor.logger import ChiaLogger
+from monitor.database import GoldEvent, session
+from monitor.exporter import GoldExporter
+from monitor.logger import GoldLogger
 from monitor.notifier import Notifier
 
-chia_config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+
+def config_path_for_filename(root_path: Path, filename: Union[str, Path]) -> Path:
+    path_filename = Path(filename)
+    if path_filename.is_absolute():
+        return path_filename
+    return root_path / "config" / filename
+
+
+def load_config(
+    root_path: Path,
+    filename: Union[str, Path],
+    sub_config: Optional[str] = None,
+    exit_on_error=True,
+) -> Dict:
+    path = config_path_for_filename(root_path, filename)
+    if not path.is_file():
+        if not exit_on_error:
+            raise ValueError("Config not found")
+        print(f"can't find {path}")
+        print("** please run `gold init` to migrate or create new config files **")
+        # TODO: fix this hack
+        sys.exit(-1)
+    r = yaml.safe_load(open(path, "r"))
+    if sub_config is not None:
+        r = r.get(sub_config)
+    return r
+
+
+DEFAULT_ROOT_PATH = Path(os.path.expanduser(os.getenv("GOLD_ROOT", "~/.gold/mainnet"))).resolve()
+gold_config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
 
 
 def initilize_logging():
@@ -34,34 +66,34 @@ def initilize_logging():
     logger.setLevel(logging.INFO)
 
 
-def persist_event(event: ChiaEvent):
+def persist_event(event: GoldEvent):
     with session.begin() as db_session:
         db_session.add(event)
         db_session.commit()
 
 
-async def aggregator(exporter: ChiaExporter, notifier: Optional[Notifier], rpc_refresh_interval: int,
+async def aggregator(exporter: GoldExporter, notifier: Optional[Notifier], rpc_refresh_interval: int,
                      price_refresh_interval: int) -> None:
     rpc_collector = None
     ws_collector = None
     event_queue = Queue()
-    logger = ChiaLogger()
+    logger = GoldLogger()
 
     try:
         logging.info("🔌 Creating RPC Collector...")
-        rpc_collector = await RpcCollector.create(DEFAULT_ROOT_PATH, chia_config, event_queue, rpc_refresh_interval)
+        rpc_collector = await RpcCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue, rpc_refresh_interval)
     except Exception as e:
         logging.warning(f"Failed to create RPC collector. Continuing without it. {type(e).__name__}: {e}")
 
     try:
         logging.info("🔌 Creating WebSocket Collector...")
-        ws_collector = await WsCollector.create(DEFAULT_ROOT_PATH, chia_config, event_queue)
+        ws_collector = await WsCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue)
     except Exception as e:
         logging.warning(f"Failed to create WebSocket collector. Continuing without it. {type(e).__name__}: {e}")
 
     try:
         logging.info("🔌 Creating Price Collector...")
-        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, chia_config, event_queue, price_refresh_interval)
+        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue, price_refresh_interval)
     except Exception as e:
         logging.warning(f"Failed to create Price collector. Continuing without it. {type(e).__name__}: {e}")
 
@@ -135,7 +167,7 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    exporter = ChiaExporter(exporter_port)
+    exporter = GoldExporter(exporter_port)
     if enable_notifications:
         notifier = Notifier(status_url, alert_url, status_interval_minutes, lost_plots_alert_threshold,
                             disable_proof_found_alert, notifications_refresh_interval)

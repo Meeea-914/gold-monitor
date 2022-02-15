@@ -17,7 +17,7 @@ from chia.rpc.wallet_rpc_client import WalletRpcClient
 from chia.server.outbound_message import NodeType
 from chia.util.ints import uint16
 from monitor.collectors.collector import Collector
-from monitor.database.events import (BlockchainStateEvent, ChiaEvent, ConnectionsEvent,
+from monitor.database.events import (BlockchainStateEvent, GoldEvent, ConnectionsEvent,
                                      HarvesterPlotsEvent, PoolStateEvent, WalletBalanceEvent)
 
 
@@ -33,7 +33,7 @@ class RpcCollector(Collector):
     refresh_interval_seconds: int
 
     @staticmethod
-    async def create(root_path: Path, net_config: Dict, event_queue: Queue[ChiaEvent],
+    async def create(root_path: Path, net_config: Dict, event_queue: Queue[GoldEvent],
                      refresh_interval_seconds: int) -> RpcCollector:
         self = RpcCollector()
         self.log = logging.getLogger(__name__)
@@ -93,7 +93,7 @@ class RpcCollector(Collector):
 
         if len(self.tasks) < 1:
             raise ConnectionError(
-                "Failed to connect to any RPC endpoints, Check if your Chia services are running")
+                "Failed to connect to any RPC endpoints, Check if your Gold services are running")
 
         return self
 

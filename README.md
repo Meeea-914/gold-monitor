@@ -1,8 +1,8 @@
-# chia-monitor [![discord](https://img.shields.io/discord/845771315118080020.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/K5KyD9mXDh)
+# gold-monitor [![discord](https://img.shields.io/discord/845771315118080020.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/K5KyD9mXDh)
 
-A monitoring tool to collect all important metrics from your [Chia](https://github.com/Chia-Network/chia-blockchain) farming node and connected harvesters.
+A monitoring tool to collect all important metrics from your [Gold](https://github.com/goldcoin-gl/gold-blockchain) farming node and connected harvesters.
 
-These metrics are collected from the Chia daemon via RPC and WebSocket interfaces and can also be used to send you push notifications with regular status updates, alert you if something goes wrong, a proof is found, or you receive payments to your farmer wallet.
+These metrics are collected from the Gold daemon via RPC and WebSocket interfaces and can also be used to send you push notifications with regular status updates, alert you if something goes wrong, a proof is found, or you receive payments to your farmer wallet.
 
 All metrics are exported to a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` endpoint and a [Grafana](https://github.com/grafana/grafana) dashboard is also provided:
 
@@ -12,7 +12,7 @@ This example dashboard displays almost all collected metrics and can be imported
 
 ## How to Support
 
-If you find this tool helpful and want to support the development, feel free to give this repo a ⭐ or donate some Chia (XCH) to my address: `xch17gn0pwfzqs4m9c36hrf5vfunxsddqw2jpy7w5ppp847wjgtw6m4q89egd2`
+If you find this tool helpful and want to support the development, feel free to give this repo a ⭐ or donate some Gold (GL) to my address: `gl1w9clzakz3rmyw7d2q7j233uy8afp8ymeqmpjs5wa8s5j3a4cla5sycrlmq`
 
 ## Notifications
 
@@ -33,7 +33,7 @@ Following notifications are currently sent to the `status_service_url`:
 ⌛️ Signage Points Per Minute: 6.30
 🔎 Passed Filters Per Minute: 49.30
 ✅ Total Proofs found: 73
-💰 Total Balance: 2.00001 XCH
+💰 Total Balance: 2.00001 GL
 🕰️ Time To Win: 2 weeks and 4 days
 💾 Current Netspace: 30.706 EiB
 🏔️ Peak Height: 544594
@@ -58,14 +58,14 @@ Following notifications are currently sent to the `alert_service_url`:
 
 ```md
 ** 🚨 Farmer Lost Sync! 🚨 **
-It seems like your farmer lost its connection to the Chia Network
+It seems like your farmer lost its connection to the Gold Network
 ```
 
 ### Sync recovery alert
 
 ```md
 ** ✅ Farmer Synced! ✅ **
-Your farmer is successfully synced to the Chia Network again
+Your farmer is successfully synced to the Gold Network again
 ```
 
 ### Plots lost alert
@@ -92,54 +92,54 @@ Your farmer's plot count has recovered to its previous value
 ```md
 ** 🤑 Payment received! 🤑 **
 Your wallet received a new payment
-🌱 +0.10240 XCH
+🌱 +0.10240 GL
 ```
 
 ---
 
 ## Metrics
 
-The following statistics are collected from your local [Chia](https://github.com/Chia-Network/chia-blockchain) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
+The following statistics are collected from your local [Gold](https://github.com/goldcoind-gl/gold-blockchain) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
 
 ### Supported wallet metrics
 
-- Total balance (`chia_confirmed_total_mojos`)
-- Total farmed (`chia_farmed_total_mojos`)
+- Total balance (`gold_confirmed_total_mojos`)
+- Total farmed (`gold_farmed_total_mojos`)
 
 ### Supported full node metrics
 
-- Sync status (`chia_sync_status`)
-- Peak height (`chia_peak_height`)
-- Mempool size (`chia_mempool_size`)
-- Difficulty (`chia_diffculty`)
-- Total netspace (`chia_network_space`)
-- Connection count (`chia_connections_count`)
+- Sync status (`gold_sync_status`)
+- Peak height (`gold_peak_height`)
+- Mempool size (`gold_mempool_size`)
+- Difficulty (`gold_diffculty`)
+- Total netspace (`gold_network_space`)
+- Connection count (`gold_connections_count`)
 
 ### Supported harvester metrics
 
-- OG plot count (`chia_plot_count`)
-- OG plot size (`chia_plot_size`)
-- Portable plot count (`chia_portable_plot_count`)
-- Portable plot size (`chia_portable_plot_size`)
+- OG plot count (`gold_plot_count`)
+- OG plot size (`gold_plot_size`)
+- Portable plot count (`gold_portable_plot_count`)
+- Portable plot size (`gold_portable_plot_size`)
 
 ### Supported farmer metrics
 
-- Received signage points (`chia_signage_points`)
-- Received signage point index (`chia_signage_point_index`)
-- Attempted challenges (`chia_block_challenges`)
-- Plots passed filter (`chia_plots_passed_filter`)
-- Proofs found (`chia_proofs_found`)
-- Lookup time (`chia_lookup_time_seconds`)
+- Received signage points (`gold_signage_points`)
+- Received signage point index (`gold_signage_point_index`)
+- Attempted challenges (`gold_block_challenges`)
+- Plots passed filter (`gold_plots_passed_filter`)
+- Proofs found (`gold_proofs_found`)
+- Lookup time (`gold_lookup_time_seconds`)
 
 ### Supported pooling metrics
 
-- Current Points (`chia_current_pool_points`)
-- Current difficulty (`chia_current_pool_difficulty`)
-- Points found (`chia_pool_points_found_since_start`)
-- Points acknowledged (`chia_pool_points_acknowledged_since_start`)
-- Points found 24h (`chia_pool_points_found_24h`)
-- Points acknowledged 24h (`chia_pool_points_acknowledged_24h`)
-- Pool errors 24h (`chia_num_pool_errors_24h`)
+- Current Points (`gold_current_pool_points`)
+- Current difficulty (`gold_current_pool_difficulty`)
+- Points found (`gold_pool_points_found_since_start`)
+- Points acknowledged (`gold_pool_points_acknowledged_since_start`)
+- Points found 24h (`gold_pool_points_found_24h`)
+- Points acknowledged 24h (`gold_pool_points_acknowledged_24h`)
+- Pool errors 24h (`gold_num_pool_errors_24h`)
 
 All pooling metrics support the following labels:
 
@@ -148,10 +148,10 @@ All pooling metrics support the following labels:
 
 ### Supported price metrics
 
-- USD price (`chia_price_usd_cent`)
-- EUR price (`chia_price_eur_cent`)
-- BTC price (`chia_price_btc_satoshi`)
-- ETH price (`chia_price_eth_gwei`)
+- USD price (`gold_price_usd_cent`)
+- EUR price (`gold_price_eur_cent`)
+- BTC price (`gold_price_btc_satoshi`)
+- ETH price (`gold_price_eth_gwei`)
 
 ## Prerequisites
 
@@ -163,7 +163,7 @@ To run this tool, we need the following things:
 ### Linux (Ubuntu)
 
 ```bash
-sudo apt install python3 pipenv
+sudo apt install python3
 ```
 
 ## Installation
@@ -171,36 +171,40 @@ sudo apt install python3 pipenv
 1. Clone the repository
 
 ```bash
-git clone https://github.com/philippnormann/chia-monitor.git
-cd chia-monitor
+git clone https://github.com/Meeea-914/gold-monitor.git
+cd gold-monitor
 ```
-
-2. Install the required dependecies
+2. Create and activate venv 
+```bash
+python -m venv venv
+source ./venv/bin/activate
+```
+3. Install the required dependecies
 
 ```bash
-pipenv install 
+pip install -r requirements.txt 
 ```
 
-3. Initialize the SQLite database
+4. Initialize the SQLite database
 
-```bash
-pipenv run alembic upgrade head
+```bash```
+python -m alembic upgrade head
 ```
 
-4. Copy the example config file
+5. Copy the example config file
 
 ```bash
 cp config-example.json config.json
 ```
 
-5. Open up `config.json` and configure it to your preferences.
+6. Open up `config.json` and configure it to your preferences.
 
 ## Updating
 
 1. Pull the latest release from git
 
 ```bash
-cd chia-monitor
+cd gold-monitor
 git reset origin/main --hard
 git pull
 ```
@@ -208,24 +212,26 @@ git pull
 2. Update the required dependecies
 
 ```bash
-pipenv install
+source ./venv/bin/activate
+pip install -r requirements.txt
 ```
 
 3. Upgrade the SQLite database model
 
 ```bash
-pipenv run alembic upgrade head
+python -m alembic upgrade head
 ```
 
-4. Import (Overwrite) the Grafana dashboard using the ID `14544` or using the `grafana/dashboard.json`
+4. Import (Overwrite) the Grafana dashboard using the `grafana/dashboard.json`
 
 ## Usage
 
-To use the tool, run the `monitor` module using `pipenv` from the `chia-monitor` directory
+To use the tool, run the `monitor` module using `pipenv` from the `gold-monitor` directory
 
 ```bash
-cd chia-monitor
-pipenv run python -m monitor
+cd gold-monitor
+source ./venv/bin/activate
+python -m monitor
 ```
 
 _Note: To run the tool in the background, you can run it as a [service](https://wiki.archlinux.org/title/systemd#Writing_unit_files) or in a detached [screen](https://wiki.archlinux.org/title/GNU_Screen)._
@@ -236,9 +242,9 @@ Add a block to the `scrape_configs` of your `prometheus.yml` config file:
 
 ```yaml
 scrape_configs:
-  - job_name: chia_monitor
+  - job_name: gold_monitor
     static_configs:
-    - targets: ['<<CHIA-MONITOR-HOSTNAME>>:8000']
+    - targets: ['<<GOLD-MONITOR-HOSTNAME>>:14800']
 ```
 
 and adjust the host name accordingly.

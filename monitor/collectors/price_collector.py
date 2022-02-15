@@ -9,7 +9,7 @@ from typing import Dict
 
 import aiohttp
 from monitor.collectors.collector import Collector
-from monitor.database import ChiaEvent
+from monitor.database import GoldEvent
 from monitor.database.events import PriceEvent
 
 VS_CURRENCIES = ["USD", "EUR", "BTC", "ETH"]
@@ -21,7 +21,7 @@ class PriceCollector(Collector):
     refresh_interval_seconds: int
 
     @staticmethod
-    async def create(_root_path: Path, _net_config: Dict, event_queue: Queue[ChiaEvent],
+    async def create(_root_path: Path, _net_config: Dict, event_queue: Queue[GoldEvent],
                      refresh_interval_seconds: int) -> Collector:
         self = PriceCollector()
         self.log = logging.getLogger(__name__)

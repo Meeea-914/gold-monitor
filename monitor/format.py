@@ -31,11 +31,11 @@ def format_plot_delta_24h(count_delta: int, size_delta: int) -> str:
 
 
 def format_balance(balance: int) -> str:
-    return f"💰 Total Balance: {balance/1e12:.5f} XCH"
+    return f"💰 Total Balance: {balance/1e12:.5f} GL"
 
 
 def format_farmed(balance: int) -> str:
-    return f"💸 Total Farmed: {balance/1e12:.5f} XCH"
+    return f"💸 Total Farmed: {balance/1e12:.5f} GL"
 
 
 def format_space(space: int) -> str:

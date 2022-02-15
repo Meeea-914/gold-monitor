@@ -60,7 +60,7 @@
       }
     ]
   },
-  "description": "Displays all important metrics from your Chia farming node and all connected harvesters, collected by chia-monitor.",
+  "description": "Displays all important metrics from your Gold farming node and all connected harvesters, collected by gold-monitor.",
   "editable": true,
   "gnetId": 14544,
   "graphTooltip": 1,
@@ -131,7 +131,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_sync_status",
+          "expr": "gold_sync_status",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -194,7 +194,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(chia_plot_size{type=\"$PlotType\"})",
+          "expr": "sum(gold_plot_size{type=\"$PlotType\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -261,7 +261,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(chia_plot_count{type=\"$PlotType\"})",
+          "expr": "sum(gold_plot_count{type=\"$PlotType\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -295,7 +295,7 @@
               }
             ]
           },
-          "unit": "XCH"
+          "unit": "GL"
         },
         "overrides": []
       },
@@ -326,7 +326,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_farmed_total_mojos/1e12",
+          "expr": "gold_farmed_total_mojos/1e12",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -357,7 +357,7 @@
               }
             ]
           },
-          "unit": "XCH"
+          "unit": "GL"
         },
         "overrides": []
       },
@@ -388,7 +388,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_confirmed_total_mojos/1e12",
+          "expr": "gold_confirmed_total_mojos/1e12",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -448,7 +448,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_pool_points_acknowledged_24h{url=\"$Pool\"} / chia_pool_points_found_24h{url=\"$Pool\"}",
+          "expr": "gold_pool_points_acknowledged_24h{url=\"$Pool\"} / gold_pool_points_found_24h{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "Success Rate",
           "refId": "A"
@@ -514,7 +514,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_connections_count{type=\"Full Node\"}",
+          "expr": "gold_connections_count{type=\"Full Node\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -576,7 +576,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_connections_count{type=\"Farmer\"}",
+          "expr": "gold_connections_count{type=\"Farmer\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -638,7 +638,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_connections_count{type=\"Harvester\"}",
+          "expr": "gold_connections_count{type=\"Harvester\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -697,7 +697,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(chia_plot_size{type=\"$PlotType\"})",
+          "expr": "sum(gold_plot_size{type=\"$PlotType\"})",
           "interval": "",
           "legendFormat": "Plot Size",
           "refId": "A"
@@ -756,7 +756,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(chia_plot_count{type=\"$PlotType\"})",
+          "expr": "sum(gold_plot_count{type=\"$PlotType\"})",
           "interval": "",
           "legendFormat": "Plot Count",
           "refId": "A"
@@ -815,7 +815,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "18.75 / (sum(chia_plot_size) / sum(chia_network_space))",
+          "expr": "18.75 / (sum(gold_plot_size) / sum(gold_network_space))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -875,7 +875,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_pool_points_found_24h{url=\"$Pool\"}",
+          "expr": "gold_pool_points_found_24h{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "Points",
           "refId": "A"
@@ -934,7 +934,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_network_space",
+          "expr": "gold_network_space",
           "interval": "",
           "legendFormat": "Netspace",
           "refId": "A"
@@ -942,7 +942,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Chia Network Space",
+      "title": "gold Network Space",
       "type": "stat"
     },
     {
@@ -994,7 +994,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_pool_points_acknowledged_24h{url=\"$Pool\"}",
+          "expr": "gold_pool_points_acknowledged_24h{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "Points",
           "refId": "A"
@@ -1061,7 +1061,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(chia_signage_points_total[5m]) * 60",
+          "expr": "rate(gold_signage_points_total[5m]) * 60",
           "interval": "",
           "legendFormat": "Challanges",
           "refId": "A"
@@ -1119,7 +1119,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_plot_size{type=\"$PlotType\"}",
+          "expr": "gold_plot_size{type=\"$PlotType\"}",
           "interval": "",
           "legendFormat": "{{ host }}",
           "refId": "A"
@@ -1178,7 +1178,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_peak_height",
+          "expr": "gold_peak_height",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1237,7 +1237,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_diffculty",
+          "expr": "gold_diffculty",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1297,7 +1297,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "round(increase(chia_proofs_found_total[10y]))",
+          "expr": "round(increase(gold_proofs_found_total[10y]))",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1356,7 +1356,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_current_pool_points{url=\"$Pool\"}",
+          "expr": "gold_current_pool_points{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1415,7 +1415,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_current_pool_difficulty{url=\"$Pool\"}",
+          "expr": "gold_current_pool_difficulty{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1475,7 +1475,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_num_pool_errors_24h{url=\"$Pool\"}",
+          "expr": "gold_num_pool_errors_24h{url=\"$Pool\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1536,7 +1536,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(chia_plots_passed_filter_total[5m]) * 60",
+          "expr": "rate(gold_plots_passed_filter_total[5m]) * 60",
           "interval": "",
           "legendFormat": "Filters Passed",
           "refId": "A"
@@ -1594,7 +1594,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(chia_block_challenges_total[5m]) * 60",
+          "expr": "rate(gold_block_challenges_total[5m]) * 60",
           "interval": "",
           "legendFormat": "Challanges",
           "refId": "A"
@@ -1652,7 +1652,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_plot_count{type=\"$PlotType\"}",
+          "expr": "gold_plot_count{type=\"$PlotType\"}",
           "interval": "",
           "legendFormat": "{{ host }}",
           "refId": "A"
@@ -1709,7 +1709,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "round(avg_over_time(chia_mempool_size[5m]))",
+          "expr": "round(avg_over_time(gold_mempool_size[5m]))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Mempool Size",
@@ -1771,7 +1771,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_price_usd_cent/100",
+          "expr": "gold_price_usd_cent/100",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1779,7 +1779,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "XCH Price",
+      "title": "GL Price",
       "type": "stat"
     },
     {
@@ -1833,7 +1833,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "chia_price_usd_cent/100 * chia_confirmed_total_mojos/1e12",
+          "expr": "gold_price_usd_cent/100 * gold_confirmed_total_mojos/1e12",
           "interval": "",
           "legendFormat": "Difficulty",
           "refId": "A"
@@ -1891,7 +1891,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(chia_proofs_found_total[5m]) * 60",
+          "expr": "rate(gold_proofs_found_total[5m]) * 60",
           "interval": "",
           "legendFormat": "Proofs",
           "refId": "A"
@@ -1956,7 +1956,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(chia_lookup_time_seconds_sum[5m])) / sum(rate(chia_lookup_time_seconds_count[1m]))",
+          "expr": "sum(rate(gold_lookup_time_seconds_sum[5m])) / sum(rate(gold_lookup_time_seconds_count[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Average",
@@ -1964,7 +1964,7 @@
         },
         {
           "exemplar": true,
-          "expr": "histogram_quantile(1., sum(rate(chia_lookup_time_seconds_bucket[1m])) by (le))",
+          "expr": "histogram_quantile(1., sum(rate(gold_lookup_time_seconds_bucket[1m])) by (le))",
           "hide": false,
           "interval": "",
           "intervalFactor": 1,
@@ -2036,7 +2036,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(chia_current_pool_points, url)",
+        "definition": "label_values(gold_current_pool_points, url)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -2046,7 +2046,7 @@
         "name": "Pool",
         "options": [],
         "query": {
-          "query": "label_values(chia_current_pool_points, url)",
+          "query": "label_values(gold_current_pool_points, url)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -2063,7 +2063,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(chia_plot_count, type)",
+        "definition": "label_values(gold_plot_count, type)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -2073,7 +2073,7 @@
         "name": "PlotType",
         "options": [],
         "query": {
-          "query": "label_values(chia_plot_count, type)",
+          "query": "label_values(gold_plot_count, type)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -2103,7 +2103,7 @@
     ]
   },
   "timezone": "",
-  "title": "Chia Monitor",
-  "uid": "URpClhZga",
-  "version": 111
+  "title": "Gold Monitor",
+  "uid": "URpClhZgc",
+  "version": 1
 }

@@ -13,8 +13,8 @@ class LostSyncNotification(Notification):
     def trigger(self) -> None:
         return self.apobj.notify(
             title='** 🚨 Farmer Lost Sync! 🚨 **',
-            body="It seems like your farmer lost its connection to the Chia Network")
+            body="It seems like your farmer lost its connection to the Gold Network")
 
     def recover(self) -> None:
         return self.apobj.notify(title='** ✅ Farmer Synced! ✅ **',
-                                 body="Your farmer is successfully synced to the Chia Network again")
+                                 body="Your farmer is successfully synced to the Gold Network again")

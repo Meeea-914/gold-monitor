@@ -22,4 +22,4 @@ class PaymentNotification(Notification):
             last_payment_mojos = get_last_payment(db_session)
         return self.apobj.notify(title='** 🤑 Payment received! 🤑 **',
                                  body="Your wallet received a new payment\n" + \
-                                     f"🌱 +{last_payment_mojos/1e12:.5f} XCH")
+                                     f"🌱 +{last_payment_mojos/1e12:.5f} GL")

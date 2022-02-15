@@ -1,8 +1,8 @@
-from monitor.database import ChiaEvent
+from monitor.database import GoldEvent
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 
-class HarvesterPlotsEvent(ChiaEvent):
+class HarvesterPlotsEvent(GoldEvent):
     __tablename__ = "harvester_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -13,7 +13,7 @@ class HarvesterPlotsEvent(ChiaEvent):
     portable_plot_size = Column(Integer)
 
 
-class ConnectionsEvent(ChiaEvent):
+class ConnectionsEvent(GoldEvent):
     __tablename__ = "connection_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -23,7 +23,7 @@ class ConnectionsEvent(ChiaEvent):
     harvester_count = Column(Integer)
 
 
-class BlockchainStateEvent(ChiaEvent):
+class BlockchainStateEvent(GoldEvent):
     __tablename__ = "blockchain_state_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -34,7 +34,7 @@ class BlockchainStateEvent(ChiaEvent):
     synced = Column(Boolean())
 
 
-class WalletBalanceEvent(ChiaEvent):
+class WalletBalanceEvent(GoldEvent):
     __tablename__ = "wallet_balance_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -42,7 +42,7 @@ class WalletBalanceEvent(ChiaEvent):
     farmed = Column(String(32))
 
 
-class SignagePointEvent(ChiaEvent):
+class SignagePointEvent(GoldEvent):
     __tablename__ = "signage_point_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -51,7 +51,7 @@ class SignagePointEvent(ChiaEvent):
     signage_point_index = Column(Integer)
 
 
-class FarmingInfoEvent(ChiaEvent):
+class FarmingInfoEvent(GoldEvent):
     __tablename__ = "farming_info_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -62,7 +62,7 @@ class FarmingInfoEvent(ChiaEvent):
     total_plots = Column(Integer)
 
 
-class PoolStateEvent(ChiaEvent):
+class PoolStateEvent(GoldEvent):
     __tablename__ = "pool_state_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -77,7 +77,7 @@ class PoolStateEvent(ChiaEvent):
     num_pool_errors_24h = Column(Integer)
 
 
-class PriceEvent(ChiaEvent):
+class PriceEvent(GoldEvent):
     __tablename__ = "price_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
