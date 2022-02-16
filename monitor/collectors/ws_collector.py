@@ -11,7 +11,7 @@ import aiohttp
 from chia.server.server import ssl_context_for_client
 from chia.util.ws_message import WsRpcMessage
 from monitor.collectors.collector import Collector
-from monitor.database.events import GoldEvent, FarmingInfoEvent, SignagePointEvent
+from monitor.database.events import SilicoinEvent, FarmingInfoEvent, SignagePointEvent
 
 
 class WsCollector(Collector):
@@ -20,7 +20,7 @@ class WsCollector(Collector):
     closed = False
 
     @staticmethod
-    async def create(root_path: Path, net_config: Dict, event_queue: Queue[GoldEvent]) -> WsCollector:
+    async def create(root_path: Path, net_config: Dict, event_queue: Queue[SilicoinEvent]) -> WsCollector:
         self = WsCollector()
         self.log = logging.getLogger(__name__)
         self.event_queue = event_queue

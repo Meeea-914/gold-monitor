@@ -12,7 +12,7 @@ meta = MetaData(
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
         "pk": "pk_%(table_name)s"
     })
-GoldEvent = declarative_base(metadata=meta)
+SilicoinEvent = declarative_base(metadata=meta)
 
 engine = create_engine(DATABASE_URL, echo=False)
 session = sessionmaker(engine, expire_on_commit=False)

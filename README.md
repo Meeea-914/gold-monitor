@@ -1,8 +1,8 @@
-# gold-monitor [![discord](https://img.shields.io/discord/845771315118080020.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/K5KyD9mXDh)
+# sit-monitor [![discord](https://img.shields.io/discord/845771315118080020.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/K5KyD9mXDh)
 
-A monitoring tool to collect all important metrics from your [Gold](https://github.com/goldcoin-gl/gold-blockchain) farming node and connected harvesters.
+A monitoring tool to collect all important metrics from your [Silicoin](https://github.com/sitcoin-gl/sit-blockchain) farming node and connected harvesters.
 
-These metrics are collected from the Gold daemon via RPC and WebSocket interfaces and can also be used to send you push notifications with regular status updates, alert you if something goes wrong, a proof is found, or you receive payments to your farmer wallet.
+These metrics are collected from the Silicoin daemon via RPC and WebSocket interfaces and can also be used to send you push notifications with regular status updates, alert you if something goes wrong, a proof is found, or you receive payments to your farmer wallet.
 
 All metrics are exported to a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` endpoint and a [Grafana](https://github.com/grafana/grafana) dashboard is also provided:
 
@@ -12,7 +12,7 @@ This example dashboard displays almost all collected metrics and can be imported
 
 ## How to Support
 
-If you find this tool helpful and want to support the development, feel free to give this repo a ⭐ or donate some Gold (GL) to my address: `gl1w9clzakz3rmyw7d2q7j233uy8afp8ymeqmpjs5wa8s5j3a4cla5sycrlmq`
+If you find this tool helpful and want to support the development, feel free to give this repo a ⭐ or donate some Silicoin (SIT) to my address: `gl1w9clzakz3rmyw7d2q7j233uy8afp8ymeqmpjs5wa8s5j3a4cla5sycrlmq`
 
 ## Notifications
 
@@ -33,7 +33,7 @@ Following notifications are currently sent to the `status_service_url`:
 ⌛️ Signage Points Per Minute: 6.30
 🔎 Passed Filters Per Minute: 49.30
 ✅ Total Proofs found: 73
-💰 Total Balance: 2.00001 GL
+💰 Total Balance: 2.00001 SIT
 🕰️ Time To Win: 2 weeks and 4 days
 💾 Current Netspace: 30.706 EiB
 🏔️ Peak Height: 544594
@@ -58,14 +58,14 @@ Following notifications are currently sent to the `alert_service_url`:
 
 ```md
 ** 🚨 Farmer Lost Sync! 🚨 **
-It seems like your farmer lost its connection to the Gold Network
+It seems like your farmer lost its connection to the Silicoin Network
 ```
 
 ### Sync recovery alert
 
 ```md
 ** ✅ Farmer Synced! ✅ **
-Your farmer is successfully synced to the Gold Network again
+Your farmer is successfully synced to the Silicoin Network again
 ```
 
 ### Plots lost alert
@@ -92,54 +92,54 @@ Your farmer's plot count has recovered to its previous value
 ```md
 ** 🤑 Payment received! 🤑 **
 Your wallet received a new payment
-🌱 +0.10240 GL
+🌱 +0.10240 SIT
 ```
 
 ---
 
 ## Metrics
 
-The following statistics are collected from your local [Gold](https://github.com/goldcoind-gl/gold-blockchain) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
+The following statistics are collected from your local [Silicoin](https://github.com/sitcoind-gl/sit-blockchain) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
 
 ### Supported wallet metrics
 
-- Total balance (`gold_confirmed_total_mojos`)
-- Total farmed (`gold_farmed_total_mojos`)
+- Total balance (`sit_confirmed_total_mojos`)
+- Total farmed (`sit_farmed_total_mojos`)
 
 ### Supported full node metrics
 
-- Sync status (`gold_sync_status`)
-- Peak height (`gold_peak_height`)
-- Mempool size (`gold_mempool_size`)
-- Difficulty (`gold_diffculty`)
-- Total netspace (`gold_network_space`)
-- Connection count (`gold_connections_count`)
+- Sync status (`sit_sync_status`)
+- Peak height (`sit_peak_height`)
+- Mempool size (`sit_mempool_size`)
+- Difficulty (`sit_diffculty`)
+- Total netspace (`sit_network_space`)
+- Connection count (`sit_connections_count`)
 
 ### Supported harvester metrics
 
-- OG plot count (`gold_plot_count`)
-- OG plot size (`gold_plot_size`)
-- Portable plot count (`gold_portable_plot_count`)
-- Portable plot size (`gold_portable_plot_size`)
+- OG plot count (`sit_plot_count`)
+- OG plot size (`sit_plot_size`)
+- Portable plot count (`sit_portable_plot_count`)
+- Portable plot size (`sit_portable_plot_size`)
 
 ### Supported farmer metrics
 
-- Received signage points (`gold_signage_points`)
-- Received signage point index (`gold_signage_point_index`)
-- Attempted challenges (`gold_block_challenges`)
-- Plots passed filter (`gold_plots_passed_filter`)
-- Proofs found (`gold_proofs_found`)
-- Lookup time (`gold_lookup_time_seconds`)
+- Received signage points (`sit_signage_points`)
+- Received signage point index (`sit_signage_point_index`)
+- Attempted challenges (`sit_block_challenges`)
+- Plots passed filter (`sit_plots_passed_filter`)
+- Proofs found (`sit_proofs_found`)
+- Lookup time (`sit_lookup_time_seconds`)
 
 ### Supported pooling metrics
 
-- Current Points (`gold_current_pool_points`)
-- Current difficulty (`gold_current_pool_difficulty`)
-- Points found (`gold_pool_points_found_since_start`)
-- Points acknowledged (`gold_pool_points_acknowledged_since_start`)
-- Points found 24h (`gold_pool_points_found_24h`)
-- Points acknowledged 24h (`gold_pool_points_acknowledged_24h`)
-- Pool errors 24h (`gold_num_pool_errors_24h`)
+- Current Points (`sit_current_pool_points`)
+- Current difficulty (`sit_current_pool_difficulty`)
+- Points found (`sit_pool_points_found_since_start`)
+- Points acknowledged (`sit_pool_points_acknowledged_since_start`)
+- Points found 24h (`sit_pool_points_found_24h`)
+- Points acknowledged 24h (`sit_pool_points_acknowledged_24h`)
+- Pool errors 24h (`sit_num_pool_errors_24h`)
 
 All pooling metrics support the following labels:
 
@@ -148,10 +148,10 @@ All pooling metrics support the following labels:
 
 ### Supported price metrics
 
-- USD price (`gold_price_usd_cent`)
-- EUR price (`gold_price_eur_cent`)
-- BTC price (`gold_price_btc_satoshi`)
-- ETH price (`gold_price_eth_gwei`)
+- USD price (`sit_price_usd_cent`)
+- EUR price (`sit_price_eur_cent`)
+- BTC price (`sit_price_btc_satoshi`)
+- ETH price (`sit_price_eth_gwei`)
 
 ## Prerequisites
 
@@ -171,8 +171,8 @@ sudo apt install python3
 1. Clone the repository
 
 ```bash
-git clone https://github.com/Meeea-914/gold-monitor.git
-cd gold-monitor
+git clone https://github.com/Meeea-914/sit-monitor.git
+cd sit-monitor
 ```
 2. Create and activate venv 
 ```bash
@@ -204,7 +204,7 @@ cp config-example.json config.json
 1. Pull the latest release from git
 
 ```bash
-cd gold-monitor
+cd sit-monitor
 git reset origin/main --hard
 git pull
 ```
@@ -226,10 +226,10 @@ python -m alembic upgrade head
 
 ## Usage
 
-To use the tool, run the `monitor` module using `pipenv` from the `gold-monitor` directory
+To use the tool, run the `monitor` module using `pipenv` from the `sit-monitor` directory
 
 ```bash
-cd gold-monitor
+cd sit-monitor
 source ./venv/bin/activate
 python -m monitor
 ```
@@ -242,9 +242,9 @@ Add a block to the `scrape_configs` of your `prometheus.yml` config file:
 
 ```yaml
 scrape_configs:
-  - job_name: gold_monitor
+  - job_name: sit_monitor
     static_configs:
-    - targets: ['<<GOLD-MONITOR-HOSTNAME>>:14800']
+    - targets: ['<<SILICOIN-MONITOR-HOSTNAME>>:14800']
 ```
 
 and adjust the host name accordingly.

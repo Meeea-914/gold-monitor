@@ -1,8 +1,8 @@
-from monitor.database import GoldEvent
+from monitor.database import SilicoinEvent
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 
-class HarvesterPlotsEvent(GoldEvent):
+class HarvesterPlotsEvent(SilicoinEvent):
     __tablename__ = "harvester_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -13,7 +13,7 @@ class HarvesterPlotsEvent(GoldEvent):
     portable_plot_size = Column(Integer)
 
 
-class ConnectionsEvent(GoldEvent):
+class ConnectionsEvent(SilicoinEvent):
     __tablename__ = "connection_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -23,7 +23,7 @@ class ConnectionsEvent(GoldEvent):
     harvester_count = Column(Integer)
 
 
-class BlockchainStateEvent(GoldEvent):
+class BlockchainStateEvent(SilicoinEvent):
     __tablename__ = "blockchain_state_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -34,7 +34,7 @@ class BlockchainStateEvent(GoldEvent):
     synced = Column(Boolean())
 
 
-class WalletBalanceEvent(GoldEvent):
+class WalletBalanceEvent(SilicoinEvent):
     __tablename__ = "wallet_balance_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -42,7 +42,7 @@ class WalletBalanceEvent(GoldEvent):
     farmed = Column(String(32))
 
 
-class SignagePointEvent(GoldEvent):
+class SignagePointEvent(SilicoinEvent):
     __tablename__ = "signage_point_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -51,7 +51,7 @@ class SignagePointEvent(GoldEvent):
     signage_point_index = Column(Integer)
 
 
-class FarmingInfoEvent(GoldEvent):
+class FarmingInfoEvent(SilicoinEvent):
     __tablename__ = "farming_info_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -62,7 +62,7 @@ class FarmingInfoEvent(GoldEvent):
     total_plots = Column(Integer)
 
 
-class PoolStateEvent(GoldEvent):
+class PoolStateEvent(SilicoinEvent):
     __tablename__ = "pool_state_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)
@@ -77,7 +77,7 @@ class PoolStateEvent(GoldEvent):
     num_pool_errors_24h = Column(Integer)
 
 
-class PriceEvent(GoldEvent):
+class PriceEvent(SilicoinEvent):
     __tablename__ = "price_events"
     id = Column(Integer, primary_key=True, autoincrement=True)
     ts = Column(DateTime, index=True, nullable=False)

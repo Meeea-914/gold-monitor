@@ -1,67 +1,67 @@
 from prometheus_client import Counter, Gauge, Histogram, start_http_server
 
-from monitor.database.events import (BlockchainStateEvent, GoldEvent, ConnectionsEvent, FarmingInfoEvent,
+from monitor.database.events import (BlockchainStateEvent, SilicoinEvent, ConnectionsEvent, FarmingInfoEvent,
                                      HarvesterPlotsEvent, PoolStateEvent, PriceEvent, SignagePointEvent, WalletBalanceEvent)
 from monitor.database.queries import get_signage_point_ts
 
 
-class GoldExporter:
+class SilicoinExporter:
     # Wallet metrics
-    total_balance_gauge = Gauge('gold_confirmed_total_mojos', 'Sum of confirmed wallet balances')
-    total_farmed_gauge = Gauge('gold_farmed_total_mojos', 'Total gold farmed')
+    total_balance_gauge = Gauge('sit_confirmed_total_mojos', 'Sum of confirmed wallet balances')
+    total_farmed_gauge = Gauge('sit_farmed_total_mojos', 'Total sit farmed')
 
     # Full node metrics
-    network_space_gauge = Gauge('gold_network_space', 'Approximation of current netspace')
-    diffculty_gauge = Gauge('gold_diffculty', 'Current networks farming difficulty')
-    height_gauge = Gauge('gold_peak_height', 'Block height of the current peak')
-    sync_gauge = Gauge('gold_sync_status', 'Sync status of the connected full node')
-    connections_gauge = Gauge('gold_connections_count', 'Count of peers that the node is currently connected to', ["type"])
-    mempool_size_gauge = Gauge('gold_mempool_size', 'Current mempool size')
+    network_space_gauge = Gauge('sit_network_space', 'Approximation of current netspace')
+    diffculty_gauge = Gauge('sit_diffculty', 'Current networks farming difficulty')
+    height_gauge = Gauge('sit_peak_height', 'Block height of the current peak')
+    sync_gauge = Gauge('sit_sync_status', 'Sync status of the connected full node')
+    connections_gauge = Gauge('sit_connections_count', 'Count of peers that the node is currently connected to', ["type"])
+    mempool_size_gauge = Gauge('sit_mempool_size', 'Current mempool size')
 
     # Harvester metrics
-    plot_count_gauge = Gauge('gold_plot_count', 'Plot count being farmed by harvester', ["host", "type"])
-    plot_size_gauge = Gauge('gold_plot_size', 'Size of plots being farmed by harvester', ["host", "type"])
+    plot_count_gauge = Gauge('sit_plot_count', 'Plot count being farmed by harvester', ["host", "type"])
+    plot_size_gauge = Gauge('sit_plot_size', 'Size of plots being farmed by harvester', ["host", "type"])
 
     # Farmer metrics
-    signage_point_counter = Counter('gold_signage_points', 'Received signage points')
-    signage_point_index_gauge = Gauge('gold_signage_point_index', 'Received signage point index')
-    challenges_counter = Counter('gold_block_challenges', 'Attempted block challenges')
-    passed_filter_counter = Counter('gold_plots_passed_filter', 'Plots passed filter')
-    proofs_found_counter = Counter('gold_proofs_found', 'Proofs found')
-    lookup_time = Histogram('gold_lookup_time_seconds',
+    signage_point_counter = Counter('sit_signage_points', 'Received signage points')
+    signage_point_index_gauge = Gauge('sit_signage_point_index', 'Received signage point index')
+    challenges_counter = Counter('sit_block_challenges', 'Attempted block challenges')
+    passed_filter_counter = Counter('sit_plots_passed_filter', 'Plots passed filter')
+    proofs_found_counter = Counter('sit_proofs_found', 'Proofs found')
+    lookup_time = Histogram('sit_lookup_time_seconds',
                             'Plot lookup time',
                             buckets=(.01, .05, .1, .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5,
                                      3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0,
                                      11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, float("inf")))
 
     # Pool metrics
-    current_pool_points_gauge = Gauge('gold_current_pool_points',
+    current_pool_points_gauge = Gauge('sit_current_pool_points',
                                       'Number of pooling points you have collected during this round', ['p2', 'url'])
-    current_pool_difficulty_gauge = Gauge('gold_current_pool_difficulty', 'Difficulty of partials you are submitting',
+    current_pool_difficulty_gauge = Gauge('sit_current_pool_difficulty', 'Difficulty of partials you are submitting',
                                           ['p2', 'url'])
-    pool_points_found_since_start_gauge = Gauge('gold_pool_points_found_since_start', 'Total number of pooling points found',
+    pool_points_found_since_start_gauge = Gauge('sit_pool_points_found_since_start', 'Total number of pooling points found',
                                                 ['p2', 'url'])
-    pool_points_acknowledged_since_start_gauge = Gauge('gold_pool_points_acknowledged_since_start',
+    pool_points_acknowledged_since_start_gauge = Gauge('sit_pool_points_acknowledged_since_start',
                                                        'Total number of pooling points acknowledged', ['p2', 'url'])
-    pool_points_found_24h_gauge = Gauge('gold_pool_points_found_24h', 'Number of pooling points found the last 24h',
+    pool_points_found_24h_gauge = Gauge('sit_pool_points_found_24h', 'Number of pooling points found the last 24h',
                                         ['p2', 'url'])
-    pool_points_acknowledged_24h_gauge = Gauge('gold_pool_points_acknowledged_24h',
+    pool_points_acknowledged_24h_gauge = Gauge('sit_pool_points_acknowledged_24h',
                                                'Number of pooling points acknowledged the last 24h', ['p2', 'url'])
-    num_pool_errors_24h_gauge = Gauge('gold_num_pool_errors_24h', 'Number of pool errors during the last 24 hours',
+    num_pool_errors_24h_gauge = Gauge('sit_num_pool_errors_24h', 'Number of pool errors during the last 24 hours',
                                       ['p2', 'url'])
 
     # Price metrics
-    price_usd_cents_gauge = Gauge('gold_price_usd_cent', 'Current gold price in USD cent')
-    price_eur_cents_gauge = Gauge('gold_price_eur_cent', 'Current gold price in EUR cent')
-    price_btc_satoshi_gauge = Gauge('gold_price_btc_satoshi', 'Current gold price in BTC satoshi')
-    price_eth_gwei_gauge = Gauge('gold_price_eth_gwei', 'Current gold price in ETH gwei')
+    price_usd_cents_gauge = Gauge('sit_price_usd_cent', 'Current sit price in USD cent')
+    price_eur_cents_gauge = Gauge('sit_price_eur_cent', 'Current sit price in EUR cent')
+    price_btc_satoshi_gauge = Gauge('sit_price_btc_satoshi', 'Current sit price in BTC satoshi')
+    price_eth_gwei_gauge = Gauge('sit_price_eth_gwei', 'Current sit price in ETH gwei')
 
     last_signage_point: SignagePointEvent = None
 
     def __init__(self, port: int) -> None:
         start_http_server(port)
 
-    def process_event(self, event: GoldEvent) -> None:
+    def process_event(self, event: SilicoinEvent) -> None:
         if isinstance(event, HarvesterPlotsEvent):
             self.update_harvester_metrics(event)
         elif isinstance(event, FarmingInfoEvent):

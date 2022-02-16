@@ -5,18 +5,18 @@ from asyncio import Queue
 from pathlib import Path
 from typing import Dict
 
-from monitor.database.events import GoldEvent
+from monitor.database.events import SilicoinEvent
 
 
 class Collector:
     log: logging.Logger
-    event_queue: Queue[GoldEvent]
+    event_queue: Queue[SilicoinEvent]
 
     @staticmethod
-    async def create(root_path: Path, net_config: Dict, event_queue: Queue[GoldEvent]) -> Collector:
+    async def create(root_path: Path, net_config: Dict, event_queue: Queue[SilicoinEvent]) -> Collector:
         raise NotImplementedError
 
-    async def publish_event(self, event: GoldEvent) -> None:
+    async def publish_event(self, event: SilicoinEvent) -> None:
         await self.event_queue.put(event)
 
     async def task(self) -> None:

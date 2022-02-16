@@ -1,18 +1,18 @@
 import logging
 
-from monitor.database.events import (BlockchainStateEvent, GoldEvent, ConnectionsEvent, FarmingInfoEvent,
+from monitor.database.events import (BlockchainStateEvent, SilicoinEvent, ConnectionsEvent, FarmingInfoEvent,
                                      HarvesterPlotsEvent, PoolStateEvent, PriceEvent, SignagePointEvent, WalletBalanceEvent)
 from monitor.database.queries import get_signage_point_ts
 from monitor.format import *
 
 
-class GoldLogger:
+class SilicoinLogger:
     last_signage_point: SignagePointEvent = None
 
     def __init__(self) -> None:
         self.log = logging.getLogger(__name__)
 
-    def process_event(self, event: GoldEvent) -> None:
+    def process_event(self, event: SilicoinEvent) -> None:
         if isinstance(event, HarvesterPlotsEvent):
             self.update_harvester_metrics(event)
         elif isinstance(event, FarmingInfoEvent):

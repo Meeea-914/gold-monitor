@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from monitor.database.events import GoldEvent
+from monitor.database.events import SilicoinEvent
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,7 +18,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = GoldEvent.metadata
+target_metadata = SilicoinEvent.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

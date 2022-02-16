@@ -26,9 +26,9 @@ setattr(BlockRecord, 'from_json_dict', from_json_dict)
 
 from monitor.collectors import RpcCollector, WsCollector
 from monitor.collectors.price_collector import PriceCollector
-from monitor.database import GoldEvent, session
-from monitor.exporter import GoldExporter
-from monitor.logger import GoldLogger
+from monitor.database import SilicoinEvent, session
+from monitor.exporter import SilicoinExporter
+from monitor.logger import SilicoinLogger
 from monitor.notifier import Notifier
 
 
@@ -50,7 +50,7 @@ def load_config(
         if not exit_on_error:
             raise ValueError("Config not found")
         print(f"can't find {path}")
-        print("** please run `gold init` to migrate or create new config files **")
+        print("** please run `sit init` to migrate or create new config files **")
         # TODO: fix this hack
         sys.exit(-1)
     r = yaml.safe_load(open(path, "r"))
@@ -59,8 +59,8 @@ def load_config(
     return r
 
 
-DEFAULT_ROOT_PATH = Path(os.path.expanduser(os.getenv("GOLD_ROOT", "~/.gold/mainnet"))).resolve()
-gold_config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+DEFAULT_ROOT_PATH = Path(os.path.expanduser(os.getenv("SILICOIN_ROOT", "~/.sit/mainnet"))).resolve()
+sit_config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
 
 
 def initilize_logging():
@@ -77,34 +77,34 @@ def initilize_logging():
     logger.setLevel(logging.INFO)
 
 
-def persist_event(event: GoldEvent):
+def persist_event(event: SilicoinEvent):
     with session.begin() as db_session:
         db_session.add(event)
         db_session.commit()
 
 
-async def aggregator(exporter: GoldExporter, notifier: Optional[Notifier], rpc_refresh_interval: int,
+async def aggregator(exporter: SilicoinExporter, notifier: Optional[Notifier], rpc_refresh_interval: int,
                      price_refresh_interval: int) -> None:
     rpc_collector = None
     ws_collector = None
     event_queue = Queue()
-    logger = GoldLogger()
+    logger = SilicoinLogger()
 
     try:
         logging.info("🔌 Creating RPC Collector...")
-        rpc_collector = await RpcCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue, rpc_refresh_interval)
+        rpc_collector = await RpcCollector.create(DEFAULT_ROOT_PATH, sit_config, event_queue, rpc_refresh_interval)
     except Exception as e:
         logging.warning(f"Failed to create RPC collector. Continuing without it. {type(e).__name__}: {e}")
 
     try:
         logging.info("🔌 Creating WebSocket Collector...")
-        ws_collector = await WsCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue)
+        ws_collector = await WsCollector.create(DEFAULT_ROOT_PATH, sit_config, event_queue)
     except Exception as e:
         logging.warning(f"Failed to create WebSocket collector. Continuing without it. {type(e).__name__}: {e}")
 
     try:
         logging.info("🔌 Creating Price Collector...")
-        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue,
+        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, sit_config, event_queue,
                                                       price_refresh_interval)
     except Exception as e:
         logging.warning(f"Failed to create Price collector. Continuing without it. {type(e).__name__}: {e}")
@@ -179,7 +179,7 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    exporter = GoldExporter(exporter_port)
+    exporter = SilicoinExporter(exporter_port)
     if enable_notifications:
         notifier = Notifier(status_url, alert_url, status_interval_minutes, lost_plots_alert_threshold,
                             disable_proof_found_alert, notifications_refresh_interval)
