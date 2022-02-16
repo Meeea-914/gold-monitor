@@ -171,8 +171,8 @@ sudo apt install python3
 1. Clone the repository
 
 ```bash
-git clone https://github.com/Meeea-914/sit-monitor.git -b sit
-cd sit-monitor
+git clone https://github.com/Meeea-914/gold-monitor.git -b sit
+cd gold-monitor
 ```
 2. Create and activate venv 
 ```bash
