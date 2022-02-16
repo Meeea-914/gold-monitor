@@ -13,6 +13,17 @@ import os
 
 from sqlalchemy.exc import OperationalError
 
+from chia.util.streamable import dataclass_from_dict
+from chia.consensus.block_record import BlockRecord
+
+
+def from_json_dict(json_dict: Dict) -> Any:
+    if 'farmer_public_key' in json_dict:
+        json_dict.pop('farmer_public_key')
+    return dataclass_from_dict(BlockRecord, json_dict)
+
+setattr(BlockRecord, 'from_json_dict', from_json_dict)
+
 from monitor.collectors import RpcCollector, WsCollector
 from monitor.collectors.price_collector import PriceCollector
 from monitor.database import GoldEvent, session
@@ -29,10 +40,10 @@ def config_path_for_filename(root_path: Path, filename: Union[str, Path]) -> Pat
 
 
 def load_config(
-    root_path: Path,
-    filename: Union[str, Path],
-    sub_config: Optional[str] = None,
-    exit_on_error=True,
+        root_path: Path,
+        filename: Union[str, Path],
+        sub_config: Optional[str] = None,
+        exit_on_error=True,
 ) -> Dict:
     path = config_path_for_filename(root_path, filename)
     if not path.is_file():
@@ -93,7 +104,8 @@ async def aggregator(exporter: GoldExporter, notifier: Optional[Notifier], rpc_r
 
     try:
         logging.info("🔌 Creating Price Collector...")
-        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue, price_refresh_interval)
+        price_collector = await PriceCollector.create(DEFAULT_ROOT_PATH, gold_config, event_queue,
+                                                      price_refresh_interval)
     except Exception as e:
         logging.warning(f"Failed to create Price collector. Continuing without it. {type(e).__name__}: {e}")
 
