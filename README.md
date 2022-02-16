@@ -244,7 +244,7 @@ Add a block to the `scrape_configs` of your `prometheus.yml` config file:
 scrape_configs:
   - job_name: sit_monitor
     static_configs:
-    - targets: ['<<SILICOIN-MONITOR-HOSTNAME>>:14800']
+    - targets: ['<<SILICOIN-MONITOR-HOSTNAME>>:22800']
 ```
 
 and adjust the host name accordingly.

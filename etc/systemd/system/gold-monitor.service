@@ -26,8 +26,8 @@
 #   sudo groupadd --gid 8001 sit
 #
 # User creation for sit-monitor service
-#   sudo groupadd --gid 14800 sit-monitor
-#   sudo useradd -d /opt/sit-monitor -g sit-monitor -M --shell /sbin/nologin --uid 14800 sit-monitor
+#   sudo groupadd --gid 22800 sit-monitor
+#   sudo useradd -d /opt/sit-monitor -g sit-monitor -M --shell /sbin/nologin --uid 22800 sit-monitor
 #
 # Group access mods for sit-monitor and sit-proc users
 #   sudo usermod --groups sit --append sit-monitor
@@ -65,11 +65,11 @@
 #   sudo systemctl enable sit-monitor
 #
 # Check to see if port is open and running as sit-monitor user
-#   sudo netstat -lntp | grep 14800
+#   sudo netstat -lntp | grep 22800
 #   <example output>:
-#   tcp        0      0 0.0.0.0:14800            0.0.0.0:*               LISTEN      3672604/python
+#   tcp        0      0 0.0.0.0:22800            0.0.0.0:*               LISTEN      3672604/python
 #
-# Check procs to ensure sit-monitor user is owner of the previously identified process on port 14800
+# Check procs to ensure sit-monitor user is owner of the previously identified process on port 22800
 #   sudo ps auxf | grep sit-monitor | grep -v grep
 #   <example output>:
 #   sit-mo+ 3672604  1.0  0.0 883468 88568 ?        Ssl  Aug31   6:20 /opt/sit-monitor/.local/share/virtualenvs/sit-monitor-kBBgivIG/bin/python -m monitor
@@ -93,8 +93,8 @@
 #     Sep 01 03:30:01 pipenv[3672604]: 2021-09-01T03:30:01.296 INFO   ---------------------------
 #
 # Ensure Prometheus can access the sit-monitor exporter via firewall
-#   <exec firewall command for TCP port 14800 according to your deployment: iptables, firewall-cmd, etc>
-#   sudo firewall-cmd --permanent --zone=public --add-port 14800/tcp
+#   <exec firewall command for TCP port 22800 according to your deployment: iptables, firewall-cmd, etc>
+#   sudo firewall-cmd --permanent --zone=public --add-port 22800/tcp
 #   sudo firewall-cmd --reload
 #
 # Check log file to ensure functionality as expected

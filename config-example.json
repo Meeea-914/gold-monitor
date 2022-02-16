@@ -1,5 +1,5 @@
 {
-    "exporter_port": 14800,
+    "exporter_port": 22800,
     "rpc_collector" : {
         "refresh_interval_seconds": 10
     },
