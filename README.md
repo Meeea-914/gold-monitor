@@ -172,7 +172,8 @@ sudo apt install python3
 
 ```bash
 git clone https://github.com/Meeea-914/gold-monitor.git -b sit
-cd gold-monitor
+mv gold-monitor sit-monitor
+cd sit-monitor
 ```
 2. Create and activate venv 
 ```bash
